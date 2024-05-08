@@ -7,37 +7,33 @@
         mc:Ignorable="d"
         Title="Sudoku"  MinHeight="700" MinWidth="570" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/Images/sudoku.ico">
     <Grid>
-        <StackPanel Orientation="Vertical" Width="250">
+        <StackPanel Orientation="Vertical" Width="400" Height="100" VerticalAlignment="Top">
 
-            <StackPanel Name="myStack1" Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="50"  Margin="0, 20, 0, 0" VerticalAlignment="Top">
-                <TextBlock Name="myTB" Height="40" Width="100" Text="Difficulty Level" TextAlignment="Center" VerticalAlignment="Center" Padding="0, 10, 0 ,0" Margin="0, 0, 40, 0" FontSize="14" MouseEnter="myTB_MouseEnter" MouseLeave="myTB_MouseLeave">
-                    <TextBlock.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Levels" MaxWidth="150">
-                                <ComboBox Width="150" Name="difficultyLevelCombo" SelectionChanged="Digits_SelectionChanged">
-                                    <ComboBoxItem Name="easy1">Easy</ComboBoxItem>
-                                    <ComboBoxItem Name="medium2">Medium</ComboBoxItem>
-                                    <ComboBoxItem Name="hard3">Hard</ComboBoxItem>
-                                    <ComboBoxItem Name="expert4">Expert</ComboBoxItem>
-                                </ComboBox>
-                            </MenuItem>
-                        </ContextMenu>
-                    </TextBlock.ContextMenu>
-                </TextBlock>
+            <StackPanel Name="myStack" Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="50"  Margin="0, 55, 0, 0" VerticalAlignment="Bottom" Width="400">
+                <ToolBar Width="400" >
+                    <TextBlock Name="myTB" Height="40" Width="70" Text="Levels" TextAlignment="Left" VerticalAlignment="Center" Padding="0, 10, 0 ,0"  FontSize="13" MouseEnter="myTB_MouseEnter" MouseLeave="myTB_MouseLeave" />
+                    <ComboBox Width="70" Name="difficultyLevelCombo" SelectionChanged="Digits_SelectionChanged">
+                        <ComboBoxItem Name="easy1">Easy</ComboBoxItem>
+                        <ComboBoxItem Name="medium2">Medium</ComboBoxItem>
+                        <ComboBoxItem Name="hard3">Hard</ComboBoxItem>
+                        <ComboBoxItem Name="expert4">Expert</ComboBoxItem>
+                    </ComboBox>
 
+                    <Button x:Name="hint" Content="Hint" Margin="2, 0, 2, 0" Width="70" FontSize="16" FontWeight="DemiBold" Click="Hint_clicked"></Button>
 
-                <Border BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" >
-                    <Label Name="hoursLabel" Content="0" FontFamily="Segoe UI" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
-                    <Label Name="minutesLabel" Content="0" FontFamily="Segoe UI" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-                </Border>
-                <Border BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40">
-                    <Label Name="secondsLabel" Content="0" FontFamily="Segoe UI" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center" />
-                </Border>
-            </StackPanel>
+                    <StackPanel x:Name="Chances" Width="70" Orientation="Horizontal" >
+                        <!--<Image Name="image0"  Width="20"></Image>
+                        <Image Name="image1"  Width="20"></Image>
+                        <Image Name="image2"  Width="20"></Image>-->
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Name="myStack2"  HorizontalAlignment="Center" MaxHeight="50"  Margin="0, 20, 0, 0" VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20, 0, 0, 0">
+                        <Label Name="hoursLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Name="minutesLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                        <Label Name="secondsLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center"  VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </ToolBar>
+
             </StackPanel>
 
         </StackPanel>
@@ -80,7 +76,7 @@
                 </StatusBarItem>
 
                 <Separator>
-                    
+
                 </Separator>
 
                 <Button Name="button1" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
@@ -451,7 +447,7 @@
                     </Button.Background>
                     9
                 </Button>
-                
+
             </StatusBar>
         </StackPanel>
     </Grid>

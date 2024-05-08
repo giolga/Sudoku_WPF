@@ -95,10 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\heart.jpg" />
+    <Resource Include="Images\sudoku.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\sudoku.ico" />
+    <Resource Include="Images\heart.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

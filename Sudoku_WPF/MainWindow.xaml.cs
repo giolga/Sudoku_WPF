@@ -1,21 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 using System.Windows.Threading;
-using System.Xml.Linq;
 
 namespace Sudoku_WPF
 {
@@ -36,11 +28,11 @@ namespace Sudoku_WPF
         private static int[,] answerTable;
 
         private static List<Button> nameList = new List<Button>();
-        private List<Label> heartList = new List<Label>();// no static?
+        private List<Image> heartList = new List<Image>();// no static?
 
         private Button mainWindowButton = new Button();
         private Label gameOverLbl;
-        private Button hint;
+        //private Button hint;
 
         private static Random rand = new Random();
 
@@ -48,7 +40,7 @@ namespace Sudoku_WPF
         {
             int cnt = heartList.Count();
 
-            myStack2.Children.Remove(gameOverLbl);
+            Chances.Children.Remove(gameOverLbl);
 
             GameOver = false;
 
@@ -63,22 +55,20 @@ namespace Sudoku_WPF
 
             for (int i = 0; i < 3 - cnt; i++)
             {
-                Label img = new Label();
-                img.Name = $"image{i}";
-                img.Width = 50;
-                img.Height = 50;
 
-                BitmapImage btm = new BitmapImage(new Uri("/Images/heart.jpg", UriKind.Relative));
+                BitmapImage btm = new BitmapImage(new Uri("/Images/heart.png", UriKind.Relative));
+
+                //Image image = FindName($"image{i}") as Image;
+                //image.Source = btm;
 
                 Image image = new Image();
+                image.Name = $"image{i}";
+                image.Margin = new Thickness(2, 0, 0, 0);
+                image.Width = 20;
                 image.Source = btm;
-                image.Stretch = Stretch.Fill;
 
-                img.Content = image;
-                img.Height = 30;
-
-                myStack2.Children.Add(img);
-                heartList.Add(img);
+                Chances.Children.Add(image);
+                heartList.Add(image);
             }
         }
 
@@ -276,7 +266,7 @@ namespace Sudoku_WPF
             if (!GameOver)
             {
 
-                int randomRow, randomColumn, digit;
+                int randomRow, randomColumn;
 
                 randomRow = GetRandomNumber();
                 randomColumn = GetRandomNumber();
@@ -302,6 +292,7 @@ namespace Sudoku_WPF
 
                     hint = answerTable[randomRow, randomColumn];
                 }
+
                 GetDigit = hint;
 
                 Button myButt = nameList.Where(n => n.Name == $"Button{randomRow}{randomColumn}").FirstOrDefault();
@@ -311,15 +302,20 @@ namespace Sudoku_WPF
 
                 if (heartList.Count > 1)
                 {
-                    Label heart = heartList[heartList.Count - 1];
-                    myStack2.Children.Remove(heart);
+                    Image heart = heartList[heartList.Count - 1];
+                    Chances.Children.Remove(heart);
                     heartList.RemoveAt(heartList.Count - 1);
+
+
+                    //MessageBox.Show($"img count from IF {heartList.Count} heart Name {heart.Name}");
                 }
                 else
                 {
-                    Label heart = heartList[heartList.Count - 1];
-                    myStack2.Children.Remove(heart);
+                    Image heart = heartList[heartList.Count - 1];
+                    Chances.Children.Remove(heart);
                     heartList.RemoveAt(heartList.Count - 1);
+
+                    //MessageBox.Show($"img count from else {heartList.Count} heart Name {heart.Name}");
 
                     gameOverLbl = new Label()
                     {
@@ -329,10 +325,11 @@ namespace Sudoku_WPF
                     GameOver = true;
 
 
-                    gameOverLbl.FontSize = 18;
+                    gameOverLbl.FontSize = 12;
                     gameOverLbl.FontWeight = FontWeights.Bold;
+                    gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
 
-                    myStack2.Children.Add(gameOverLbl);
+                    Chances.Children.Add(gameOverLbl);
                 }
 
                 GetDigit = null;
@@ -371,16 +368,17 @@ namespace Sudoku_WPF
             }
 
             // to solve it
-            hint = new Button();
-            hint.Name = "hint";
-            hint.Content = "Hint";
-            hint.Margin = new Thickness(2, 0, 2, 0);
-            hint.Width = 70;
-            hint.FontSize = 16;
-            hint.FontWeight = FontWeights.DemiBold;
-            hint.Click += Hint_clicked;
+            //hint = new Button();
+            //hint.Name = "hint";
+            //hint.Content = "Hint";
+            //hint.Margin = new Thickness(2, 0, 2, 0);
+            //hint.Width = 70;
+            //hint.FontSize = 16;
+            //hint.FontWeight = FontWeights.DemiBold;
+            //hint.Click += Hint_clicked;
 
-            myStack2.Children.Add(hint);
+            //myStack.Children.Add(hint);
+
 
             RestartGame();
         }
@@ -400,35 +398,40 @@ namespace Sudoku_WPF
                     {
                         button.Background = Brushes.Transparent;
                         button.Content = GetDigit.ToString();
+                        sudokuTableArr[row, col] = (int)GetDigit;
                     }
                     else
                     {
-                        button.Background = Brushes.Pink;
-
-                        if (heartList.Count > 1)
+                        if (sudokuTableArr[row, col] == 0)
                         {
-                            Label heart = heartList[heartList.Count - 1];
-                            myStack2.Children.Remove(heart);
-                            heartList.RemoveAt(heartList.Count - 1);
-                        }
-                        else
-                        {
-                            Label heart = heartList[heartList.Count - 1];
-                            myStack2.Children.Remove(heart);
-                            heartList.RemoveAt(heartList.Count - 1);
+                            button.Background = Brushes.Pink;
 
-                            gameOverLbl = new Label()
+                            if (heartList.Count > 1)
                             {
-                                Content = "Game Over!"
-                            };
+                                Image heart = heartList[heartList.Count - 1];
+                                Chances.Children.Remove(heart);
+                                heartList.RemoveAt(heartList.Count - 1);
+                            }
+                            else
+                            {
+                                Image heart = heartList[heartList.Count - 1];
+                                Chances.Children.Remove(heart);
+                                heartList.RemoveAt(heartList.Count - 1);
 
-                            GameOver = true;
+                                gameOverLbl = new Label()
+                                {
+                                    Content = "Game Over!"
+                                };
+
+                                GameOver = true;
 
 
-                            gameOverLbl.FontSize = 18;
-                            gameOverLbl.FontWeight = FontWeights.Bold;
+                                gameOverLbl.FontSize = 12;
+                                gameOverLbl.FontWeight = FontWeights.Bold;
+                                gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
 
-                            myStack2.Children.Add(gameOverLbl);
+                                Chances.Children.Add(gameOverLbl);
+                            }
                         }
                     }
 
