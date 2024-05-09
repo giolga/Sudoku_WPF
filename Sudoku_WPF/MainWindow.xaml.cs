@@ -348,7 +348,34 @@ namespace Sudoku_WPF
                 {
                     Border border = new Border();
                     border.BorderBrush = Brushes.Black;
-                    border.BorderThickness = new Thickness(1);
+                    //border.BorderThickness = new Thickness(1, 1, 1, 2);
+
+                    if (col == 0)
+                    {
+                        border.BorderThickness = new Thickness(3, 1, 1, 1);
+                    }
+                    else if (col == 8)
+                    {
+                        border.BorderThickness = new Thickness(1, 1, 3, 1);
+                    }
+                    else
+                    {
+                        border.BorderThickness = new Thickness(1, 1, 1, 1);
+                    }
+
+
+                    if(row == 0)
+                    {
+                        border.BorderThickness = new Thickness(1, 3, 1, 1);
+                    }
+                    if(row == 8)
+                    {
+                        border.BorderThickness = new Thickness(1, 1, 1, 3);
+                    }
+
+
+
+
 
                     Grid.SetRow(border, row);
                     Grid.SetColumn(border, col);
@@ -367,18 +394,46 @@ namespace Sudoku_WPF
                 }
             }
 
-            // to solve it
-            //hint = new Button();
-            //hint.Name = "hint";
-            //hint.Content = "Hint";
-            //hint.Margin = new Thickness(2, 0, 2, 0);
-            //hint.Width = 70;
-            //hint.FontSize = 16;
-            //hint.FontWeight = FontWeights.DemiBold;
-            //hint.Click += Hint_clicked;
+            //const int grid = 2;
+            //int cntHorizontal = 0;
+            //int cntVertical = 0;
 
-            //myStack.Children.Add(hint);
+            //for (int row = 0; row < 9; row++)
+            //{
+            //    Border border = new Border();
+            //    border.BorderBrush = Brushes.Black;
 
+            //    if (cntHorizontal == grid)
+            //    {
+            //        border.BorderThickness = new Thickness(0.5, 2, 0.5, 0.5);
+            //        cntHorizontal = 0;
+            //    }
+            //    else
+            //    {
+            //        cntHorizontal++;
+            //    }
+
+            //    for (int col = 0; col < 9; col++)
+            //    {
+            //        Grid.SetRow(border, row);
+            //        Grid.SetColumn(border, col);
+
+            //        if (cntVertical == grid)
+            //        {
+            //            border.BorderThickness = new Thickness(2, 0.5, 0.5, 0.5);
+            //            cntVertical = 0;
+            //        } else
+            //        {
+            //            cntVertical++;
+            //        }
+
+            //        if(col == 8 && grid == 2)
+            //        {
+            //            border.BorderThickness = new Thickness(0.5, 0.5, 2, 0.5);
+            //        }
+
+            //    }
+            //}
 
             RestartGame();
         }

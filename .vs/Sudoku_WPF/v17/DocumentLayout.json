@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\GioLGA\\Desktop\\MyProjects\\Sudoku_WPF\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|c:\\users\\giolga\\desktop\\myprojects\\sudoku_wpf\\sudoku_wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|solutionrelative:sudoku_wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|C:\\Users\\GioLGA\\Desktop\\MyProjects\\Sudoku_WPF\\sudoku_wpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|solutionrelative:sudoku_wpf\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|c:\\users\\giolga\\desktop\\myprojects\\sudoku_wpf\\sudoku_wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{E4BE8D09-7870-485C-B02D-7328D9F194F6}|Sudoku_WPF\\Sudoku_WPF.csproj|solutionrelative:sudoku_wpf\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,7 +30,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\GioLGA\\Desktop\\MyProjects\\Sudoku_WPF\\Sudoku_WPF\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Sudoku_WPF\\MainWindow.xaml",
@@ -42,13 +42,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\GioLGA\\Desktop\\MyProjects\\Sudoku_WPF\\Sudoku_WPF\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "Sudoku_WPF\\MainWindow.xaml.cs",
               "ToolTip": "C:\\Users\\GioLGA\\Desktop\\MyProjects\\Sudoku_WPF\\Sudoku_WPF\\MainWindow.xaml.cs",
               "RelativeToolTip": "Sudoku_WPF\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAP4AAAAAAAAAAAAwwAkBAAAaAAAA",
+              "ViewState": "AQIAAFcBAAAAAAAAAAAAAGgBAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-27T10:42:39.091Z",
               "EditorCaption": ""
