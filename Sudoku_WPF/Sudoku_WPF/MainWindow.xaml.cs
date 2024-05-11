@@ -52,7 +52,6 @@ namespace Sudoku_WPF
             minutesLabel.Content = 0;
             hoursLabel.Content = 0;
 
-            hintAmount = 2;
 
             for (int i = 0; i < 3 - cnt; i++)
             {
@@ -177,9 +176,10 @@ namespace Sudoku_WPF
 
             while (emptyCell > 0)
             {
-                int randomRow, randomColumn;
+                int randomRow, randomColumn, digit;
                 randomRow = GetRandomNumber();
                 randomColumn = GetRandomNumber();
+                digit = GetRandomNumber() + 1;
 
                 if (sudokuTableArr[randomRow, randomColumn] == 0)
                 {
@@ -196,6 +196,7 @@ namespace Sudoku_WPF
 
                         randomRow = GetRandomNumber();
                         randomColumn = GetRandomNumber();
+                        digit = GetRandomNumber();
                     }
                 }
                 else
@@ -244,54 +245,21 @@ namespace Sudoku_WPF
                     break;
             }
 
-            int randomRow, digit;
+            int randomRow, randomColumn, digit;
 
             randomRow = GetRandomNumber();
-            //randomColumn = GetRandomNumber();
-            //digit = GetRandomNumber();
+            randomColumn = GetRandomNumber();
+            digit = GetRandomNumber();
 
-            //sudokuTableArr[randomRow, randomColumn] = digit;
-
-            HashSet<int> generatedRandomNumbers = new HashSet<int>();
-
-            for (int i = 0; i < PUZZLE_SIZE; i++)
-            {
-                digit = GetRandomNumber() + 1;
-                if (!generatedRandomNumbers.Contains(digit))
-                {
-                    generatedRandomNumbers.Add(digit);
-                }
-                else
-                {
-                    bool unique = false;
-
-                    while (!unique)
-                    {
-                        digit = GetRandomNumber() + 1;
-                        if (!generatedRandomNumbers.Contains(digit))
-                        {
-                            generatedRandomNumbers.Add(digit);
-                            unique = true;
-                        }
-                    }
-                }
-
-                sudokuTableArr[randomRow, i] = digit;
-            }
-
-
+            sudokuTableArr[randomRow, randomColumn] = digit;
 
             StartGame(0, 0);
 
             GenerateAnswerTable();
 
-
-
             GeneratePuzzle(randomNumber);
 
         }
-
-        private static int hintAmount = 2;
 
         private void HintClicked()
         {
@@ -327,57 +295,44 @@ namespace Sudoku_WPF
 
                 GetDigit = hint;
 
-                //Button myButt = nameList.Where(n => n.Name == $"Button{randomRow}{randomColumn}").FirstOrDefault();
+                Button myButt = nameList.Where(n => n.Name == $"Button{randomRow}{randomColumn}").FirstOrDefault();
 
-                //myButt.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#93dfb8"));
-                //myButt.Content = GetDigit.ToString();
+                myButt.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#93dfb8"));
+                myButt.Content = GetDigit.ToString();
 
-                //var bc = new BrushConverter(); DO NOT UNCOMMENT THIS IS PATTERN 
-                //myButt.Background = (Brush)bc.ConvertFrom("#93dfb8"); DO NOT UNCOMMENT THIS IS PATTERN
+                //var bc = new BrushConverter();
+                //myButt.Background = (Brush)bc.ConvertFrom("#93dfb8");
 
-
-                //This code here sacrifices hearts
-
-                //if (heartList.Count > 1)
-                //{
-                //    Image heart = heartList[heartList.Count - 1];
-                //    Chances.Children.Remove(heart);
-                //    heartList.RemoveAt(heartList.Count - 1);
-
-
-                //    //MessageBox.Show($"img count from IF {heartList.Count} heart Name {heart.Name}");
-                //}
-                //else
-                //{
-                //    Image heart = heartList[heartList.Count - 1];
-                //    Chances.Children.Remove(heart);
-                //    heartList.RemoveAt(heartList.Count - 1);
-
-                //    //MessageBox.Show($"img count from else {heartList.Count} heart Name {heart.Name}");
-
-                //    gameOverLbl = new Label()
-                //    {
-                //        Content = "Game Over!"
-                //    };
-
-                //    GameOver = true;
-
-
-                //    gameOverLbl.FontSize = 12;
-                //    gameOverLbl.FontWeight = FontWeights.Bold;
-                //    gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
-
-                //    Chances.Children.Add(gameOverLbl);
-                //}
-
-                if (hintAmount > 0)
+                if (heartList.Count > 1)
                 {
-                    Button myButt = nameList.Where(n => n.Name == $"Button{randomRow}{randomColumn}").FirstOrDefault();
+                    Image heart = heartList[heartList.Count - 1];
+                    Chances.Children.Remove(heart);
+                    heartList.RemoveAt(heartList.Count - 1);
 
-                    myButt.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#93dfb8"));
-                    myButt.Content = GetDigit.ToString();
 
-                    hintAmount--;
+                    //MessageBox.Show($"img count from IF {heartList.Count} heart Name {heart.Name}");
+                }
+                else
+                {
+                    Image heart = heartList[heartList.Count - 1];
+                    Chances.Children.Remove(heart);
+                    heartList.RemoveAt(heartList.Count - 1);
+
+                    //MessageBox.Show($"img count from else {heartList.Count} heart Name {heart.Name}");
+
+                    gameOverLbl = new Label()
+                    {
+                        Content = "Game Over!"
+                    };
+
+                    GameOver = true;
+
+
+                    gameOverLbl.FontSize = 12;
+                    gameOverLbl.FontWeight = FontWeights.Bold;
+                    gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
+
+                    Chances.Children.Add(gameOverLbl);
                 }
 
                 GetDigit = null;
