@@ -7,448 +7,90 @@
         mc:Ignorable="d"
         Title="Sudoku"  MinHeight="700" MinWidth="570" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Icon="/Images/sudoku.ico">
     <Grid>
-        <StackPanel Orientation="Vertical" Width="400" Height="100" VerticalAlignment="Top">
+        <Grid Height="600" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <StackPanel Name="myStack" Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="50"  Margin="0, 55, 0, 0" VerticalAlignment="Bottom" Width="400">
-                <ToolBar Width="400" >
-                    <TextBlock Name="myTB" Height="40" Width="70" Text="Levels" TextAlignment="Left" VerticalAlignment="Center" Padding="0, 10, 0 ,0"  FontSize="13" MouseEnter="myTB_MouseEnter" MouseLeave="myTB_MouseLeave" />
-                    <ComboBox Width="70" Name="difficultyLevelCombo" SelectionChanged="Digits_SelectionChanged">
-                        <ComboBoxItem Name="easy1">Easy</ComboBoxItem>
-                        <ComboBoxItem Name="medium2">Medium</ComboBoxItem>
-                        <ComboBoxItem Name="hard3">Hard</ComboBoxItem>
-                        <ComboBoxItem Name="expert4">Expert</ComboBoxItem>
-                    </ComboBox>
+            <StackPanel Orientation="Vertical" Width="400" Height="70" VerticalAlignment="Top">
 
-                    <Button x:Name="hint" Content="Hint" Margin="2, 0, 2, 0" Width="70" FontSize="16" FontWeight="DemiBold" Click="Hint_clicked"></Button>
+                <StackPanel Name="myStack" Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="50"  VerticalAlignment="Center" Width="400">
+                    <ToolBar Width="400" >
+                        <TextBlock Name="myTB" Height="40" Width="70" Text="Levels" TextAlignment="Left" VerticalAlignment="Center" Padding="0, 10, 0 ,0"  FontSize="13" MouseEnter="myTB_MouseEnter" MouseLeave="myTB_MouseLeave" />
+                        <ComboBox Width="70" Name="difficultyLevelCombo" SelectionChanged="Digits_SelectionChanged">
+                            <ComboBoxItem Name="easy1">Easy</ComboBoxItem>
+                            <ComboBoxItem Name="medium2">Medium</ComboBoxItem>
+                            <ComboBoxItem Name="hard3">Hard</ComboBoxItem>
+                            <ComboBoxItem Name="expert4">Expert</ComboBoxItem>
+                        </ComboBox>
 
-                    <StackPanel x:Name="Chances" Width="70" Orientation="Horizontal" >
-                        <!--<Image Name="image0"  Width="20"></Image>
+                        <Button x:Name="hint" Content="Hint" Margin="2, 0, 2, 0" Width="70" FontSize="16" FontWeight="DemiBold" Click="Hint_clicked"></Button>
+
+                        <StackPanel x:Name="Chances" Width="70" Orientation="Horizontal" >
+                            <!--<Image Name="image0"  Width="20"></Image>
                         <Image Name="image1"  Width="20"></Image>
                         <Image Name="image2"  Width="20"></Image>-->
-                    </StackPanel>
+                        </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20, 0, 0, 0">
-                        <Label Name="hoursLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
-                        <Label Name="minutesLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
-                        <Label Name="secondsLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center"  VerticalContentAlignment="Center"/>
-                    </StackPanel>
-                </ToolBar>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="20, 0, 0, 0">
+                            <Label Name="hoursLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                            <Label Name="minutesLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center" />
+                            <Label Name="secondsLabel" Content="0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" HorizontalAlignment="Center"  VerticalContentAlignment="Center"/>
+                        </StackPanel>
+                    </ToolBar>
+
+                </StackPanel>
 
             </StackPanel>
 
-        </StackPanel>
+
+            <Border x:Name="sudokuBorder" BorderBrush="Black" BorderThickness="1" Width="400" Height="400">
+                <Grid x:Name="sudokuTable" Width="400" Height="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
 
-        <Border x:Name="sudokuBorder" BorderBrush="Black" BorderThickness="1" Width="400" Height="400">
-            <Grid x:Name="sudokuTable" Width="400" Height="400">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                </Grid.RowDefinitions>
+                </Grid>
+            </Border>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5, 0, 0, 0">
+                <StatusBar>
+                    <StatusBarItem FontSize="30">
+                        Digits
+                    </StatusBarItem>
 
+                    <Separator />
 
-            </Grid>
-        </Border>
+                        <Button Name="button1" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="1" />
+                        <Button Name="button2" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="2" />
+                        <Button Name="button3" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="3" />
+                        <Button Name="button4" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="4" />
+                        <Button Name="button5" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="5" />
+                        <Button Name="button6" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="6" />
+                        <Button Name="button7" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="7" />
+                        <Button Name="button8" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="8" />
+                        <Button Name="button9" FontSize="20" Width="30" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click" Background="White" Content="9" />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5, 0, 0, 0">
-            <StatusBar>
-                <StatusBarItem FontSize="40">
-                    Digits
-                </StatusBarItem>
-
-                <Separator>
-
-                </Separator>
-
-                <Button Name="button1" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    1
-                </Button>
-
-                <Button Name="button2" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    2
-                </Button>
-
-                <Button Name="button3" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    3
-                </Button>
-
-                <Button Name="button4" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    4
-                </Button>
-
-                <Button Name="button5" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    5
-                </Button>
-
-                <Button Name="button6" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    6
-                </Button>
-
-                <Button Name="button7" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    7
-                </Button>
-
-                <Button Name="button8" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    8
-                </Button>
-
-                <Button Name="button9" FontSize="40" Width="40" MouseEnter="Border_MouseEnter" MouseLeave="Border_MouseLeave" Click="button1_Click">
-                    <Button.Style>
-                        <Style TargetType="Button">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter TargetName="border" Property="CornerRadius" Value="20" />
-                                                <Setter Property="FontSize" Value="44" />
-                                                <Setter Property="Width" Value="60" />
-                                                <Setter Property="Height" Value="60" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="Name" Value="button1">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border x:Name="border" BorderThickness="1" BorderBrush="Black" CornerRadius="5" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Button.Style>
-                    <Button.Background>
-                        <SolidColorBrush Color="White" />
-                    </Button.Background>
-                    9
-                </Button>
-
-            </StatusBar>
-        </StackPanel>
+                </StatusBar>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

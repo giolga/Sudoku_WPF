@@ -24,14 +24,17 @@ namespace Sudoku_WPF
 
         private const int PUZZLE_SIZE = 9;
         private static readonly int[] VALUES = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        private static int[,] sudokuTableArr;
-        private static int[,] answerTable;
+        private static int[,] sudokuTableArr = new int[9, 9];
+        private static int[,] answerTable = new int[9, 9];
 
         private static List<Button> nameList = new List<Button>();
         private List<Image> heartList = new List<Image>();// no static?
 
         private Button mainWindowButton = new Button();
+        private Button digitBtn;
         private Label gameOverLbl;
+
+        private static int emptyCellsCnt = 81; //win if emptyCells = 0
         //private Button hint;
 
         private static Random rand = new Random();
@@ -175,6 +178,8 @@ namespace Sudoku_WPF
             //MessageBox.Show("Inside Puzzle");
             int emptyCell = (int)Math.Pow(PUZZLE_SIZE, 2) - level;
 
+            emptyCellsCnt = emptyCell;
+
             while (emptyCell > 0)
             {
                 int randomRow, randomColumn;
@@ -204,6 +209,7 @@ namespace Sudoku_WPF
                 }
 
                 emptyCell--;
+                
             }
 
             //Draw();
@@ -295,6 +301,7 @@ namespace Sudoku_WPF
 
         private void HintClicked()
         {
+
             if (!GameOver)
             {
 
@@ -336,40 +343,6 @@ namespace Sudoku_WPF
                 //myButt.Background = (Brush)bc.ConvertFrom("#93dfb8"); DO NOT UNCOMMENT THIS IS PATTERN
 
 
-                //This code here sacrifices hearts
-
-                //if (heartList.Count > 1)
-                //{
-                //    Image heart = heartList[heartList.Count - 1];
-                //    Chances.Children.Remove(heart);
-                //    heartList.RemoveAt(heartList.Count - 1);
-
-
-                //    //MessageBox.Show($"img count from IF {heartList.Count} heart Name {heart.Name}");
-                //}
-                //else
-                //{
-                //    Image heart = heartList[heartList.Count - 1];
-                //    Chances.Children.Remove(heart);
-                //    heartList.RemoveAt(heartList.Count - 1);
-
-                //    //MessageBox.Show($"img count from else {heartList.Count} heart Name {heart.Name}");
-
-                //    gameOverLbl = new Label()
-                //    {
-                //        Content = "Game Over!"
-                //    };
-
-                //    GameOver = true;
-
-
-                //    gameOverLbl.FontSize = 12;
-                //    gameOverLbl.FontWeight = FontWeights.Bold;
-                //    gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
-
-                //    Chances.Children.Add(gameOverLbl);
-                //}
-
                 if (hintAmount > 0)
                 {
                     Button myButt = nameList.Where(n => n.Name == $"Button{randomRow}{randomColumn}").FirstOrDefault();
@@ -378,11 +351,13 @@ namespace Sudoku_WPF
                     myButt.Content = GetDigit.ToString();
 
                     hintAmount--;
+                    emptyCellsCnt--;
                 }
 
                 GetDigit = null;
 
             }
+
         }
 
         // WPF methods Below
@@ -505,11 +480,29 @@ namespace Sudoku_WPF
                     int row = Convert.ToByte(getComboBoxName[getComboBoxName.Length - 2] - 48);
                     int col = Convert.ToByte(getComboBoxName[getComboBoxName.Length - 1] - 48);
 
+                    if(emptyCellsCnt == 0)
+                    {
+                        gameOverLbl = new Label()
+                        {
+                            Content = "You Won!"
+                        };
+
+                        GameOver = true;
+
+
+                        gameOverLbl.FontSize = 12;
+                        gameOverLbl.FontWeight = FontWeights.Bold;
+                        gameOverLbl.VerticalContentAlignment = VerticalAlignment.Center;
+
+                        Chances.Children.Add(gameOverLbl);
+                    }
+
                     if (GetDigit == answerTable[row, col])
                     {
                         button.Background = Brushes.Transparent;
                         button.Content = GetDigit.ToString();
                         sudokuTableArr[row, col] = (int)GetDigit;
+                        emptyCellsCnt--;
                     }
                     else
                     {
@@ -547,6 +540,8 @@ namespace Sudoku_WPF
                     }
 
                     GetDigit = null;
+                    digitBtn.Background = Brushes.White;
+
                 }
             }
         }
@@ -555,9 +550,10 @@ namespace Sudoku_WPF
         {
             if (!GameOver)
             {
-                Button button = (Button)sender;
-                string buttonName = button.Name;
-                GetDigit = Convert.ToByte(button.Content);
+                digitBtn = (Button)sender;
+                digitBtn.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#93dfb8"));
+                string buttonName = digitBtn.Name;
+                GetDigit = Convert.ToByte(digitBtn.Content);
                 //MessageBox.Show("Digit clicked, Button name is: " + GetDigit);
             }
         }
@@ -579,38 +575,55 @@ namespace Sudoku_WPF
         {
             if (!GameOver)
             {
-
                 seconds++;
                 if (seconds >= 60)
                 {
-                    secondsLabel.Content = (seconds - 60).ToString();
                     seconds = 0;
                     minutes++;
 
                 }
-                else
-                {
-                    secondsLabel.Content = seconds.ToString();
-                }
 
                 if (minutes >= 60)
                 {
-                    minutesLabel.Content = (minutes - 60).ToString();
                     minutes = 0;
                     hours++;
                 }
-                else
-                {
-                    minutesLabel.Content = minutes.ToString();
-                }
 
+                secondsLabel.Content = seconds.ToString();
+                minutesLabel.Content = minutes.ToString();
                 hoursLabel.Content = hours.ToString();
+
+                //seconds++;
+                //if (seconds >= 60)
+                //{
+                //    secondsLabel.Content = (seconds - 60).ToString();
+                //    seconds = 0;
+                //    minutes++;
+
+                //}
+                //else
+                //{
+                //    secondsLabel.Content = seconds.ToString();
+                //}
+
+                //if (minutes >= 60)
+                //{
+                //    minutesLabel.Content = (minutes - 60).ToString();
+                //    minutes = 0;
+                //    hours++;
+                //}
+                //else
+                //{
+                //    minutesLabel.Content = minutes.ToString();
+                //}
+
+                //hoursLabel.Content = hours.ToString();
             }
         }
 
         private void myTB_MouseEnter(object sender, MouseEventArgs e)
         {
-            myTB.Background = Brushes.Wheat;
+            myTB.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#A3C7E5"));
         }
 
         private void myTB_MouseLeave(object sender, MouseEventArgs e)
@@ -629,7 +642,7 @@ namespace Sudoku_WPF
                 button.FontSize += 4;
                 button.Width += 20;
                 button.Height += 20;
-
+                button.FontFamily = new FontFamily("Sans Serif");
             }
 
         }
@@ -643,6 +656,7 @@ namespace Sudoku_WPF
                 button.FontSize -= 4;
                 button.Width -= 20;
                 button.Height -= 20;
+                button.FontFamily = new FontFamily("Segoe UI");
             }
         }
 
